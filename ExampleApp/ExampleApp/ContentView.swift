@@ -11,14 +11,20 @@ import AutoSearchField
 struct ContentView: View {
     var viewModel = ViewModel()
     var body: some View {
-        AutoSearchField<String>(
-            viewModel: AutoSearchFieldViewModel<String>(
-                allEntries: viewModel.searchableWords,
-                placeHolder: "Search something...",
-                isCaseSensitive: false
+        VStack {
+            Text("Auto Search Field Demo App")
+                .font(.headline)
+                .padding(.top, 20)
+            AutoSearchField<String>(
+                viewModel: AutoSearchFieldViewModel<String>(
+                    allEntries: viewModel.searchableWords,
+                    placeHolder: "Search something...",
+                    isCaseSensitive: false
+                )
             )
-        )
-        .padding()
+            .padding([.top, .horizontal], 20)
+            Spacer()
+        }
     }
     
     final class ViewModel: Observable {
