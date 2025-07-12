@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "AutoSearchField",
     platforms: [
-        .iOS(.v13),
+        .iOS(.v14),
         .macOS(.v13),
     ],
     products: [
