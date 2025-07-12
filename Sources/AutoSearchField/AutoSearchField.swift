@@ -32,7 +32,7 @@ public struct AutoSearchField<Collection: RangeReplaceableCollection & Hashable 
                     viewModel.beginEditing()
             }
             
-            if viewModel.isSearching {
+            if viewModel.isSearching, viewModel.showResultBelow {
                 List(viewModel.result, id: \.self) { item in
                     Text(String(describing: item))
                 }
@@ -46,6 +46,7 @@ public class AutoSearchFieldViewModel<Collection: RangeReplaceableCollection>: O
     private let searchStore: SearchDataStore<Collection.Element>
     var placeHolder: String
     var isCaseSensitive = false
+    var showResultBelow = true
     
     @Published var isSearching = false
     @Published var searchedPrefix: Collection?
@@ -54,10 +55,12 @@ public class AutoSearchFieldViewModel<Collection: RangeReplaceableCollection>: O
     public init(
         allEntries: [Collection],
         placeHolder: String = "",
-        isCaseSensitive: Bool = false
+        isCaseSensitive: Bool = false,
+        showResultBelow: Bool = true
     ) {
         self.placeHolder = placeHolder
         self.isCaseSensitive = isCaseSensitive
+        self.showResultBelow = showResultBelow
         let processedEntries = AutoSearchFieldViewModel<Collection>.lowercaseEntryIfNeeded(allEntries: allEntries, isCaseSensitive: isCaseSensitive)
         self.searchStore = SearchDataStore(processedEntries)
     }
